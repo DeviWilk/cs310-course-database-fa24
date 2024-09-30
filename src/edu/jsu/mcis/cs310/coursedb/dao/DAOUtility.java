@@ -15,10 +15,27 @@ public class DAOUtility {
         try {
         
             if (rs != null) {
-
-                // INSERT YOUR CODE HERE
+                ResultSetMetaData Mdata = rs.getMetaData();
+                
+                while (rs.next()) {
+                
+                    JsonObject Data = new JsonObject();
+                    
+                    //for loop
+                    for (int i = 1; i <= Mdata.getColumnCount(); i++){
+                        
+                        String colName = Mdata.getColumnName(i);
+                        Object colV = rs.getObject(i).toString();
+                        
+                        Data.put(colName, colV );
+                    }
+                //record
+                records.add(Data);
+                
 
             }
+            
+        }
             
         }
         catch (Exception e) {
